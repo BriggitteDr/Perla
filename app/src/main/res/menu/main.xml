@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/Theme.ElPerlaNegra.PopupMenu">
+
     <item
         android:id="@+id/acerca"
-        android:orderInCategory="100"
         android:icon="@drawable/ic_acerca"
         android:iconTint="@color/white"
+        android:orderInCategory="100"
         android:title="Acerca de Nosotros"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/contactenos"
@@ -26,6 +28,7 @@
 
     <item
         android:id="@+id/admin"
+        android:title="Administrador"
         android:icon="@drawable/ic_admin"
         android:orderInCategory="115"
         android:visible="false"

@@ -1,8 +1,17 @@
 package com.example.elperlanegra;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -19,6 +28,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -43,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser mUser;
     FirebaseDatabase db;
     Button btn_logout;
-    private PopupMenu popupMenu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,13 +131,16 @@ public class MainActivity extends AppCompatActivity {
 
         if (mUser != null && mUser.getEmail().equals("admin@gmail.com")) {
             MenuItem adminOption = menu.findItem(R.id.admin);
+            Log.d("MainActivity", "User email: " + mUser.getEmail());
             adminOption.setVisible(true);
         }
         return true;
     }
 
 
-    @SuppressLint("NonConstantResourceId")
+
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
