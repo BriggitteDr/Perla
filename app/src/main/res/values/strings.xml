@@ -13,4 +13,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="acerca">Somos un negocio de comida que le brinda al cliente un excelente servicio de atención, ofrecemos un menú muy exquisito y variado con altos principios para llevar un producto de primera calidad a su mesa y, sobre todo un inolvidable sabor a la comida de mamá.</string>
+    <string name="direccion_local">Cdla. El Cóndor Mz. A - Villa 9, atrás de Riocentro norte</string>
 </resources>

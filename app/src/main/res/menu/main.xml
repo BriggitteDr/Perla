@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_acerca"
+        android:id="@+id/acerca"
         android:orderInCategory="100"
         android:icon="@drawable/ic_acerca"
         android:iconTint="@color/white"
@@ -10,7 +10,7 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/action_contactenos"
+        android:id="@+id/contactenos"
         android:icon="@drawable/ic_contac"
         android:iconTint="@color/white"
         android:orderInCategory="105"
@@ -18,14 +18,14 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_share"
+        android:id="@+id/share"
         android:title="Compartir"
         android:orderInCategory="110"
         android:icon="@drawable/ic_share"
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/action_admin_option"
+        android:id="@+id/admin"
         android:icon="@drawable/ic_admin"
         android:orderInCategory="115"
         android:visible="false"
