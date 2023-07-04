@@ -2,8 +2,32 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_acerca"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:icon="@drawable/ic_acerca"
+        android:iconTint="@color/white"
+        android:title="Acerca de Nosotros"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_contactenos"
+        android:icon="@drawable/ic_contac"
+        android:iconTint="@color/white"
+        android:orderInCategory="105"
+        android:title="Contáctenos"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_share"
+        android:title="Compartir"
+        android:orderInCategory="110"
+        android:icon="@drawable/ic_share"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_admin_option"
+        android:icon="@drawable/ic_admin"
+        android:orderInCategory="115"
+        android:visible="false"
+        app:showAsAction="never"/>
 </menu>

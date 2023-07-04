@@ -8,18 +8,26 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.elperlanegra.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="Inicio"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.elperlanegra.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_perfil"
+        android:name="com.example.elperlanegra.ui.perfil.PerfilFragment"
+        android:label="Perfil"
+        tools:layout="@layout/fragment_perfil" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.elperlanegra.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_carrito"
+        android:name="com.example.elperlanegra.ui.carrito.CarritoFragment"
+        android:label="Carrito"
+        tools:layout="@layout/fragment_carrito" />
+
+    <fragment
+        android:id="@+id/nav_pedidos"
+        android:name="com.example.elperlanegra.MisPedidosFragment"
+        android:label="Mis Pedidos"
+        tools:layout="@layout/fragment_mis_pedidos" />
+
+
 </navigation>
