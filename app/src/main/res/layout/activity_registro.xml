@@ -101,10 +101,10 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.33"
+                app:layout_constraintHorizontal_bias="0.185"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonReg"
-                app:layout_constraintVertical_bias="0.076" />
+                app:layout_constraintVertical_bias="0.06" />
 
             <EditText
                 android:id="@+id/et_nombreAp"

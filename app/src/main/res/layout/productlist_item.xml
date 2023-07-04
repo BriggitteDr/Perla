@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="5dp"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="1dp">
+
+    <LinearLayout
+        android:background="#874C2C"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <TextView
+                android:id="@+id/nombre_detalles"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:text="Nombre"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:fontFamily="@font/alice"
+                android:textSize="17sp"
+                android:maxLines="1"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="8sp"
+                android:autoSizeMaxTextSize="17sp"/>
+
+            <TextView
+                android:id="@+id/precioUnit_detalles"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="$ 0.00"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:fontFamily="@font/alice"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"/>
+
+            <TextView
+                android:id="@+id/cant_detalles"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:fontFamily="@font/alice"
+                android:textSize="15sp"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/total_detalles"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="$ 0.00"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:fontFamily="@font/alice"
+                android:textSize="15sp"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
