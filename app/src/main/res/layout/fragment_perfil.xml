@@ -171,5 +171,22 @@
             app:layout_constraintVertical_bias="1.0" />
 
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter" />
+
+            <View
+                android:id="@+id/cropOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/crop_overlay" />
+        </FrameLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
