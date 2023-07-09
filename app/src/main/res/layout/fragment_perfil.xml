@@ -13,14 +13,14 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/addphoto_img"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginTop="196dp"
             android:background="@drawable/addfoto_bg"
             android:elevation="3dp"
             android:src="@drawable/ic_addfoto1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.656"
+            app:layout_constraintHorizontal_bias="0.646"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,14 +87,14 @@
             android:textColor="@color/white"
             android:fontFamily="@font/alice"
             android:textAlignment="center"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:padding="8dp"/>
 
         <EditText
             android:id="@+id/perfil_nombre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="70dp"
             android:background="@drawable/editext_bg"
             android:drawableLeft="@drawable/ic_name"
             android:drawablePadding="10dp"

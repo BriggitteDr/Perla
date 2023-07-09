@@ -33,7 +33,7 @@
         android:id="@+id/titulo1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="65dp"
         android:fontFamily="@font/alice"
         android:text="¡Expertos en Parrilla!"
         android:textAlignment="center"
@@ -54,7 +54,7 @@
         android:text="@string/acerca"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titulo1" />

@@ -46,12 +46,11 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="15dp"
-                android:layout_gravity="center"
                 android:src="@drawable/ic_address" />
 
             <View
@@ -66,7 +65,7 @@
                 android:fontFamily="@font/alice"
                 android:text="@string/direccion_local"
                 android:textColor="@color/white"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -82,7 +81,7 @@
         <ImageView
             android:id="@+id/map_img"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             android:src="@drawable/mapaelperla"
             android:scaleType="fitXY"/>
 
