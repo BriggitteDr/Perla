@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -80,6 +82,8 @@ public class PerfilFragment extends Fragment {
 
     EditText nombreAp, direccion, telef;
     Button actualizar;
+
+    private int rotation;
 
     private static final int STORAGE_PERMISSION_REQUEST_CODE = 1;
 
@@ -243,15 +247,57 @@ public class PerfilFragment extends Fragment {
             // Recortar la imagen y obtener el bitmap recortado
             Bitmap croppedBitmap = cropImage(imageUri);
 
+            // Obtener la orientación de la imagen
+            int rotation = getOrientationFromExif(imagePath);
+
+            // Aplicar la rotación si es necesario
+            if (rotation != 0) {
+                Matrix matrix = new Matrix();
+                matrix.postRotate(rotation);
+
+                Bitmap rotatedBitmap = Bitmap.createBitmap(croppedBitmap, 0, 0, croppedBitmap.getWidth(), croppedBitmap.getHeight(), matrix, true);
+                croppedBitmap.recycle(); // Liberar memoria del bitmap original
+                croppedBitmap = rotatedBitmap; // Utilizar el bitmap rotado
+            }
+
             // Subir el bitmap recortado a Firebase Storage
             uploadCroppedImage(croppedBitmap);
+
+            // Cargar la imagen recortada en el ImageView
+            profileIMG.setImageBitmap(croppedBitmap);
         }
     }
 
+    private int getImageRotation(Uri imageUri) {
+        String[] projection = { MediaStore.Images.ImageColumns.ORIENTATION };
+        Cursor cursor = getActivity().getContentResolver().query(imageUri, projection, null, null, null);
+
+        int rotation = 0;
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndex(projection[0]);
+            rotation = cursor.getInt(columnIndex);
+            cursor.close();
+        }
+
+        return rotation;
+    }
+
     private void uploadCroppedImage(Bitmap croppedBitmap) {
+        final Bitmap finalCroppedBitmap = croppedBitmap;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         croppedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageData = baos.toByteArray();
+
+        // Aplicar la rotación si es necesario
+        if (rotation != 0) {
+            Matrix matrix = new Matrix();
+            matrix.postRotate(rotation);
+
+            Bitmap rotatedBitmap = Bitmap.createBitmap(croppedBitmap, 0, 0, croppedBitmap.getWidth(), croppedBitmap.getHeight(), matrix, true);
+            croppedBitmap.recycle(); // Liberar memoria del bitmap original
+            croppedBitmap = rotatedBitmap; // Utilizar el bitmap rotado
+        }
 
         // Subir el byte array de la imagen a Firebase Storage
         final StorageReference reference = storage.getReference().child("fotoPerfil")
@@ -270,7 +316,7 @@ public class PerfilFragment extends Fragment {
                         Toast.makeText(getContext(), "FOTO DE PERFIL SUBIDA", Toast.LENGTH_SHORT).show();
 
                         // Cargar la imagen recortada en el ImageView
-                        profileIMG.setImageBitmap(croppedBitmap);
+                        profileIMG.setImageBitmap(finalCroppedBitmap);
                     }
                 });
             }
@@ -328,6 +374,7 @@ public class PerfilFragment extends Fragment {
             return null;
         }
     }
+
 
     private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int width = options.outWidth;
@@ -442,6 +489,27 @@ public class PerfilFragment extends Fragment {
             } else {
                 // Permiso denegado, muestra un mensaje o realiza alguna acción alternativa
             }
+        }
+    }
+
+    private int getOrientationFromExif(String imagePath) {
+        try {
+            ExifInterface exifInterface = new ExifInterface(imagePath);
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    return 90;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    return 180;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    return 270;
+                default:
+                    return 0;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 
