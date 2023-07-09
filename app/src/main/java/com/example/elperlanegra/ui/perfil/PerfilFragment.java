@@ -2,16 +2,19 @@ package com.example.elperlanegra.ui.perfil;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
@@ -24,7 +27,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -75,9 +81,7 @@ public class PerfilFragment extends Fragment {
     EditText nombreAp, direccion, telef;
     Button actualizar;
 
-    private int previousHeightDiffrence = 0;
-    private final int KEYBOARD_HEIGHT_THRESHOLD = 150;
-    private View rootView;
+    private static final int STORAGE_PERMISSION_REQUEST_CODE = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -96,6 +100,7 @@ public class PerfilFragment extends Fragment {
         userModelList = new ArrayList<>();
         datosActualesAdapter = new DatosActualesAdapter(getActivity(), userModelList);
         datosActuales_rec.setAdapter(datosActualesAdapter);
+
 
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -149,13 +154,22 @@ public class PerfilFragment extends Fragment {
                     }
                 });
 
+
+
         addfotoperfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentIMG = new Intent();
+                if (checkStoragePermission()) {
+                    // Permiso concedido, abrir la galería para seleccionar la imagen
+                    Intent intentIMG = new Intent();
+                    intentIMG.setAction(Intent.ACTION_GET_CONTENT);
+                    intentIMG.setType("image/*");
+                    startActivityForResult(intentIMG, 33);
+                }
+                /*Intent intentIMG = new Intent();
                 intentIMG.setAction(Intent.ACTION_GET_CONTENT);
                 intentIMG.setType("image/*");
-                startActivityForResult(intentIMG, 33);
+                startActivityForResult(intentIMG, 33);*/
             }
         });
 
@@ -168,6 +182,7 @@ public class PerfilFragment extends Fragment {
         });
         return root;
     }
+
 
     private void updateUserProfile() {
 
@@ -230,32 +245,6 @@ public class PerfilFragment extends Fragment {
 
             // Subir el bitmap recortado a Firebase Storage
             uploadCroppedImage(croppedBitmap);
-
-
-            /*// Aquí puedes actualizar la foto en Firebase Storage y obtener la URL de la imagen actualizada
-
-            final StorageReference reference = storage.getReference().child("fotoPerfil")
-                    .child(FirebaseAuth.getInstance().getUid());
-            reference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(getContext(), "FOTO DE PERFIL ACTUALIZADA", Toast.LENGTH_SHORT).show();
-
-                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            db.getReference().child("Users").child(FirebaseAuth.getInstance().getUid())
-                                    .child("fotoPerfil").setValue(uri.toString());
-
-                            Toast.makeText(getContext(), "FOTO DE PERFIL SUBIDA", Toast.LENGTH_SHORT).show();
-
-                            Glide.with(getContext()).load(imageUri).into(profileIMG);
-                        }
-                    });
-
-
-                }
-            });*/
         }
     }
 
@@ -428,6 +417,32 @@ public class PerfilFragment extends Fragment {
             }
         }
         return null;
+    }
+
+    ///////PERMISOS
+    private boolean checkStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int readPermission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
+            int writePermission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if (readPermission != PackageManager.PERMISSION_GRANTED || writePermission != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        STORAGE_PERMISSION_REQUEST_CODE);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == STORAGE_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permiso concedido, puedes realizar las operaciones de almacenamiento aquí
+            } else {
+                // Permiso denegado, muestra un mensaje o realiza alguna acción alternativa
+            }
+        }
     }
 
 }
