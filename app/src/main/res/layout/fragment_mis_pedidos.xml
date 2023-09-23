@@ -23,9 +23,10 @@
             android:id="@+id/platoVacio_cart"
             android:layout_width="400dp"
             android:layout_height="300dp"
+            android:layout_marginTop="184dp"
             android:src="@drawable/shopping"
-            android:layout_marginTop="350dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white" />
